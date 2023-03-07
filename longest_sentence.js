@@ -15,7 +15,7 @@ function findLongestSentenceIdx(wordCounts) {
 }
 
 function splitTextIntoSentences(text) {
-  return text.match(/[^.?!]*[.?!]/g)
+  return text.match(/\w[^.?!]*[.?!]/g)
     .map(s => s.trim())
     .filter(s => s.length > 0);
 
@@ -30,13 +30,13 @@ function displayResult(sentence, wordCount) {
 function displayError(text) {
   if (typeof (text) !== 'string') {
     console.log("Invalid input.");
-  } else if (!text.match(/[.!?]/)) {
+  } else if (!text.match(/[.!?]/) || !text.match(/\w/)) {
     console.log("There is no complete sentence in the given text.");
   }
 }
 
 function longestSentence(text) {
-  if (typeof (text) !== 'string' || (!text.match(/[.?!]/))) {
+  if (typeof (text) !== 'string' || !text.match(/[.?!]/) || !text.match(/\w/)) {
     displayError(text);
     return;
   }
@@ -47,3 +47,5 @@ function longestSentence(text) {
 
   displayResult(sentenceList[longestSentenceIndex], wordCounts[longestSentenceIndex]);
 }
+
+longestSentence(" a  .")
